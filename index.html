@@ -1,26 +1,33 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/assets/img/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>组件</title>
     <style>
+      a-sparkles{
+        display: block;
+      }
       img{
         margin-top: 16px;
-        width: 100%;
+        max-width: 400px;
+        object-fit: cover;
       }
     </style>
   </head>
   <body>
-    <a-sparkles colors="#fbbf24, #4ade80, #60a5fa, #8b5cf6, #f43f5e" min-delay="300" max-delay="800">
+  <div class="box">
+    <a-sparkles class="box" colors="#fbbf24, #4ade80, #60a5fa, #8b5cf6, #f43f5e" min-delay="300" max-delay="800" left-offset-range="50,80">
       <strong>我是一段闪闪发光的文字✨</strong>
     </a-sparkles>
-    <a-sparkles colors="#fbbf24, #4ade80, #60a5fa, #8b5cf6, #f43f5e">
+    <a-sparkles colors="#fbbf24, #4ade80, #60a5fa, #8b5cf6, #f43f5e" min-delay="80" max-delay="500">
       <img src="/assets/img/deep_valley.jpeg" alt="" />
     </a-sparkles>
-    <script type="module" src="/main.js"></script>
- 
-<!--   <script src="dist/index.umd.cjs"></script>-->
+  </div>
+  <!-- NOTE: 开发环境打开下面注释 -->
+  <!--  <script type="module" src="/main.js"></script>-->
+  <!-- NOTE: 开发环境将下面注释 -->
+   <script src="dist/components/a_sparkles.iife.js"></script>
   </body>
 </html>

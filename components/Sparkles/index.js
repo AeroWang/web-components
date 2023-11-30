@@ -6,9 +6,9 @@ const generateSparkleConfig = (
 	randomColorList = [],
 	leftOffsetRange,
 	topOffsetRange,
-) =>
-// const randomColorList = ['#fbbf24', '#4ade80', '#60a5fa', '#8b5cf6', '#f43f5e']
-	({
+) => {
+	// const randomColorList = ['#fbbf24', '#4ade80', '#60a5fa', '#8b5cf6', '#f43f5e']
+	return {
 		id: String(random(10000, 99999)),
 		createdAt: Date.now(),
 		size: random(10, 17),
@@ -16,11 +16,12 @@ const generateSparkleConfig = (
 			color: randomColorList.length
 				? randomColorList[random(0, randomColorList.length)]
 				: undefined,
-			top: `${random(leftOffsetRange[0], leftOffsetRange[1])}%`,
-			left: `${random(topOffsetRange[0], leftOffsetRange[1])}%`,
+			top: `${random(topOffsetRange[0], topOffsetRange[1])}%`,
+			left: `${random(leftOffsetRange[0], leftOffsetRange[1])}%`,
 			zIndex: (preferredReducedMotion ? 1 : random(1, 8)).toString()
 		}
-	});
+	};
+};
 
 const REDUCED_MOTION = '(prefers-reduced-motion: no-preference)';
 
@@ -31,7 +32,7 @@ class Sparkles extends HTMLElement {
 	_sparkles = [];
 	_timeId = { timeId: null };
 	_shadow;
-	// 可传入属性 colors，min-delay，max-delay，
+	// 可传入属性 colors，min-delay，max-delay，left-offset-range,top-offset-range
 	_randomColors;
 	_minDelay = 300;
 	_maxDelay = 800;
@@ -54,12 +55,12 @@ class Sparkles extends HTMLElement {
 
 		// 可传入属性 colors，min-delay，max-delay，left-offset-range,top-offset-range
 		this._randomColors = this.getAttribute('colors') ? this.getAttribute('colors').split(',').map((item) => item.trim()) : undefined;
-		const leftOffsetRange =this.getAttribute('left-offset-range') ? this.getAttribute('left-offset-range').split(',').map((item) => item.trim()) : [-15, 60];
+		const leftOffsetRange =this.getAttribute('left-offset-range') ? this.getAttribute('left-offset-range').split(',').map((item) => Number(item.trim())) : [-15, 60];
 		this._leftOffsetRange = leftOffsetRange.length === 2 ? leftOffsetRange : [-10, 60];
-		const topOffsetRange =this.getAttribute('top-offset-range') ? this.getAttribute('top-offset-range').split(',').map((item) => item.trim()) : [-15, 60];
+		const topOffsetRange =this.getAttribute('top-offset-range') ? this.getAttribute('top-offset-range').split(',').map((item) => Number(item.trim())) : [-15, 60];
 		this._topOffsetRange = topOffsetRange.length === 2 ? topOffsetRange : [0, 85];
 		this._minDelay = this.getAttribute('min-delay') ? Number(this.getAttribute('min-delay')) : 300;
-		this._maxDelay = this.getAttribute('max-delay') ? Number(this.getAttribute('max-delay'))<600 ? 600: Number(this.getAttribute('max-delay')) : 800;
+		this._maxDelay = this.getAttribute('max-delay') ? Number(this.getAttribute('max-delay')) < 500 ? 500: Number(this.getAttribute('max-delay')) : 800;
 
 		if (this._preferredReducedMotion) {
 			const initNum = this.getAttribute('init-num');
@@ -99,7 +100,6 @@ class Sparkles extends HTMLElement {
 			}
 		}
 		if (!this._preferredReducedMotion){
-			// console.log(this._minDelay, this._maxDelay);
 			randomIntervalTick(this.reCreate, this._timeId, this._minDelay, this._maxDelay);
 		}
 	}
@@ -110,7 +110,7 @@ class Sparkles extends HTMLElement {
 		const nextSparkles = this._sparkles.filter((sparkle) => {
 			const delta = now1 - sparkle.createdAt;
 			// delta < maxDelay + 100 与动画时长也相关
-			if (delta < this._maxDelay + 50) {
+			if (delta < this._maxDelay + 150) {
 				return true;
 			}else {
 				// 移除"过期"的火花
