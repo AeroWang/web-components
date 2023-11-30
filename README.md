@@ -15,6 +15,7 @@
     - `left-offset-range` 定义火花✨出现的范围边界；（从左向右边界）
       - 形式如 `left-offset-range="-10,60"`，属性值为数值类型，映射样式单位为百分比
     - `top-offset-range` （从上至下边界）
+    - `slot-type`，默认为 `slot-type="text"`，此时层级可随机出现在 slot 层级意义上的上下层；否则火花✨仅出现在 slot 上层
     - etc...
 2. 引入方式：
    - 在 `body` 标签末尾插入 `<script src="a_sparkles.iife.js"></script>`

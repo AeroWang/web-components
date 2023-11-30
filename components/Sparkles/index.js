@@ -4,6 +4,7 @@ import sparklesStyles from './sparkles.less?inline';
 const generateSparkleConfig = (
 	preferredReducedMotion = false,
 	randomColorList = [],
+	slotType = 'text',
 	leftOffsetRange,
 	topOffsetRange,
 ) => {
@@ -18,7 +19,7 @@ const generateSparkleConfig = (
 				: undefined,
 			top: `${random(topOffsetRange[0], topOffsetRange[1])}%`,
 			left: `${random(leftOffsetRange[0], leftOffsetRange[1])}%`,
-			zIndex: (preferredReducedMotion ? 1 : random(1, 8)).toString()
+			zIndex: (slotType === 'text' ? preferredReducedMotion ? 1 : random(1, 8) : 6).toString()
 		}
 	};
 };
@@ -38,6 +39,7 @@ class Sparkles extends HTMLElement {
 	_maxDelay = 800;
 	_leftOffsetRange = [-15, 60];
 	_topOffsetRange = [0, 85];
+	_slotType = 'text';
 
 	constructor () {
 		super();
@@ -61,6 +63,7 @@ class Sparkles extends HTMLElement {
 		this._topOffsetRange = topOffsetRange.length === 2 ? topOffsetRange : [0, 85];
 		this._minDelay = this.getAttribute('min-delay') ? Number(this.getAttribute('min-delay')) : 300;
 		this._maxDelay = this.getAttribute('max-delay') ? Number(this.getAttribute('max-delay')) < 500 ? 500: Number(this.getAttribute('max-delay')) : 800;
+		this._slotType = this.getAttribute('slot-type') ? this.getAttribute('slot-type') : 'text';
 
 		if (this._preferredReducedMotion) {
 			const initNum = this.getAttribute('init-num');
@@ -105,7 +108,7 @@ class Sparkles extends HTMLElement {
 	}
 	// insert
 	reCreate(){
-		const sparkle = generateSparkleConfig(false, this._randomColors, this._leftOffsetRange, this._topOffsetRange);
+		const sparkle = generateSparkleConfig(false, this._randomColors, this._slotType, this._leftOffsetRange, this._topOffsetRange);
 		const now1 = Date.now();
 		const nextSparkles = this._sparkles.filter((sparkle) => {
 			const delta = now1 - sparkle.createdAt;
