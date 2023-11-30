@@ -1,0 +1,47 @@
+.sparkles-box {
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.single-sparkle-box {
+  position: absolute;
+  transform: translate3d(-50%, -50%, 0);
+  color: orange;
+  pointer-events: none;
+}
+.slot{
+  position: relative;
+  z-index: 5;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .single-sparkle-box {
+    animation: comeInout 600ms ease-in-out forwards;
+
+    svg {
+      animation: spin 600ms ease-in-out forwards;
+    }
+  }
+}
+
+@keyframes comeInout {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
