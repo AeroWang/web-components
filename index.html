@@ -1,33 +1,57 @@
 <!doctype html>
 <html lang="zh">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/assets/img/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vite.svg"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>组件</title>
     <style>
-      a-sparkles{
-        display: block;
-      }
-      img{
-        margin-top: 16px;
-        max-width: 400px;
-        object-fit: cover;
-      }
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        a-sparkles {
+            display: inline-block;
+            text-align: center;
+
+        }
+
+        a-sparkles.text {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+
+        a-sparkles.img-slot {
+            margin-top: 20px;
+            max-width: 500px;
+        }
+
+        .hr {
+            height: 1px;
+            width: 90%;
+            background-color: #262626;
+            border-radius: 10px;
+            margin: 16px auto;
+        }
+
+        img {
+            width: 100%;
+            object-fit: cover;
+        }
     </style>
-  </head>
-  <body>
-  <div class="box">
-    <a-sparkles class="box" colors="#fbbf24, #4ade80, #60a5fa, #8b5cf6, #f43f5e" min-delay="300" max-delay="800" left-offset-range="-15,65">
-      <strong>我是一段闪闪发光的文字✨</strong>
+</head>
+<body>
+    <a-sparkles class="text" colors="#fbbf24, #4ade80, #60a5fa, #8b5cf6, #f43f5e" min-delay="300" max-delay="800"
+                left-offset-range="-1,80">
+        <strong>我是一段闪闪发光的文字✨</strong>
     </a-sparkles>
-    <a-sparkles colors="#fbbf24, #4ade80, #60a5fa, #8b5cf6, #f43f5e" min-delay="80" max-delay="500" slot-type="img">
-      <img src="./assets/img/deep_valley.jpeg" alt="" />
+    <div class="hr"></div>
+    <a-sparkles class="img-slot" colors="#fbbf24, #4ade80, #60a5fa, #8b5cf6, #f43f5e" min-delay="80" max-delay="500"
+                slot-type="img" left-offset-range="-1,80" top-offset-range="0,90">
+        <img src="./assets/img/deep_valley.jpeg" alt=""/>
     </a-sparkles>
-  </div>
-  <!-- NOTE: 开发环境打开下面注释 -->
-<!--    <script type="module" src="/main.js"></script>-->
-  <!-- NOTE: 开发环境将下面注释 -->
-   <script src="./dist/components/a_sparkles.iife.js"></script>
-  </body>
+    <script type="module" src="/main.js"></script>
+</body>
 </html>
